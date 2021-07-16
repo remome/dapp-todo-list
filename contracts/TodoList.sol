@@ -9,4 +9,15 @@ contract TodoList {
     bool completed;
   }
 
+  mapping(uint => Task) public tasks; // mapping(อันนี้ตือ key => อันนี้ struct Task) มาเก็บไว้ที่ tasks;
+
+  constructor() public {
+    createTask("check out bitkubchain.com");
+  }
+
+  function createTask(string memory _content) public {
+    taskCount ++; // create id for tasks
+    tasks[taskCount] = Task(taskCount, _content, false);
+  }
+
 }
