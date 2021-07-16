@@ -1,0 +1,241 @@
+TruffleContract {
+  constructor: [Function: TruffleContract] {
+    _constructorMethods: {
+      configureNetwork: [Function: configureNetwork],
+      setProvider: [Function: setProvider],
+      new: [Function: new],
+      at: [AsyncFunction: at],
+      deployed: [AsyncFunction: deployed],
+      defaults: [Function: defaults],
+      hasNetwork: [Function: hasNetwork],
+      isDeployed: [Function: isDeployed],
+      detectNetwork: [AsyncFunction: detectNetwork],
+      setNetwork: [Function: setNetwork],
+      setNetworkType: [Function: setNetworkType],
+      setWallet: [Function: setWallet],
+      resetAddress: [Function: resetAddress],
+      link: [Function: link],
+      clone: [Function: clone],
+      addProp: [Function: addProp],
+      toJSON: [Function: toJSON],
+      decodeLogs: [Function: decodeLogs]
+    },
+    _properties: {
+      contract_name: [Object],
+      contractName: [Object],
+      gasMultiplier: [Object],
+      timeoutBlocks: [Object],
+      autoGas: [Object],
+      numberFormat: [Object],
+      abi: [Object],
+      metadata: [Function: metadata],
+      network: [Function: network],
+      networks: [Function: networks],
+      address: [Object],
+      transactionHash: [Object],
+      links: [Function: links],
+      events: [Function: events],
+      binary: [Function: binary],
+      deployedBinary: [Function: deployedBinary],
+      unlinked_binary: [Object],
+      bytecode: [Object],
+      deployedBytecode: [Object],
+      sourceMap: [Object],
+      deployedSourceMap: [Object],
+      source: [Object],
+      sourcePath: [Object],
+      legacyAST: [Object],
+      ast: [Object],
+      compiler: [Object],
+      schema_version: [Function: schema_version],
+      schemaVersion: [Function: schemaVersion],
+      updated_at: [Function: updated_at],
+      updatedAt: [Function: updatedAt],
+      userdoc: [Function: userdoc],
+      devdoc: [Function: devdoc],
+      networkType: [Object],
+      immutableReferences: [Object],
+      generatedSources: [Object],
+      deployedGeneratedSources: [Object],
+      db: [Object]
+    },
+    _property_values: {},
+    _json: {
+      contractName: 'TodoList',
+      abi: [Array],
+      metadata: '{"compiler":{"version":"0.5.16+commit.9c3226ce"},"language":"Solidity","output":{"abi":[{"constant":true,"inputs":[],"name":"taskCount","outputs":[{"internalType":"uint256","name":"","type":"uint256"}],"payable":false,"stateMutability":"view","type":"function"}],"devdoc":{"methods":{}},"userdoc":{"methods":{}}},"settings":{"compilationTarget":{"project:/contracts/TodoList.sol":"TodoList"},"evmVersion":"istanbul","libraries":{},"optimizer":{"enabled":true,"runs":200},"remappings":[]},"sources":{"project:/contracts/TodoList.sol":{"keccak256":"0xb61c75123715d7c930c9d2da6c6ad66184bd2edc51def6e1563c390bc46fee54","urls":["bzz-raw://3f8f7460914b2bc105249af5cd716d4cd1c0f9f81bd31e59f5462035cdfe7a33","dweb:/ipfs/QmPh3ZfeZmG7odcSzWq4Gj52TjfXNt37wDyvWQJwtsEUXW"]}},"version":1}',
+      bytecode: '0x608060405260008055348015601357600080fd5b506080806100226000396000f3fe6080604052348015600f57600080fd5b506004361060285760003560e01c8063b6cb58a514602d575b600080fd5b60336045565b60408051918252519081900360200190f35b6000548156fea265627a7a72315820564616c3309338aea76714675e4640a4af780384aff8110b345b39b64b72ca4a64736f6c63430005100032',
+      deployedBytecode: '0x6080604052348015600f57600080fd5b506004361060285760003560e01c8063b6cb58a514602d575b600080fd5b60336045565b60408051918252519081900360200190f35b6000548156fea265627a7a72315820564616c3309338aea76714675e4640a4af780384aff8110b345b39b64b72ca4a64736f6c63430005100032',
+      immutableReferences: undefined,
+      generatedSources: undefined,
+      deployedGeneratedSources: undefined,
+      sourceMap: '25:125:0:-;;;71:1;47:25;;25:125;8:9:-1;5:2;;;30:1;27;20:12;5:2;25:125:0;;;;;;;',
+      deployedSourceMap: '25:125:0:-;;;;8:9:-1;5:2;;;30:1;27;20:12;5:2;25:125:0;;;;;;;;;;;;;;;;;;;47:25;;;:::i;:::-;;;;;;;;;;;;;;;;;;;;:::o',
+      source: 'pragma solidity ^0.5.0;\n' +
+        '\n' +
+        'contract TodoList {\n' +
+        '  uint public taskCount = 0;\n' +
+        '\n' +
+        '  struct Task {\n' +
+        '    uint id;\n' +
+        '    string content;\n' +
+        '    bool completed;\n' +
+        '  }\n' +
+        '\n' +
+        '}\n',
+      sourcePath: '/Users/pym.phitsinee/Project/dapp-todo-list/contracts/TodoList.sol',
+      ast: [Object],
+      legacyAST: [Object],
+      compiler: [Object],
+      networks: [Object],
+      schemaVersion: '3.4.1',
+      updatedAt: '2021-07-16T16:45:21.588Z',
+      networkType: 'ethereum',
+      devdoc: [Object],
+      userdoc: [Object],
+      db: undefined
+    },
+    configureNetwork: [Function: bound configureNetwork],
+    setProvider: [Function: bound setProvider],
+    new: [Function: bound new] {
+      estimateGas: [Function: bound estimateDeployment],
+      request: [Function: bound requestDeployment]
+    },
+    at: [Function: bound at] AsyncFunction,
+    deployed: [Function: bound deployed] AsyncFunction,
+    defaults: [Function: bound defaults],
+    hasNetwork: [Function: bound hasNetwork],
+    isDeployed: [Function: bound isDeployed],
+    detectNetwork: [Function: bound detectNetwork] AsyncFunction,
+    setNetwork: [Function: bound setNetwork],
+    setNetworkType: [Function: bound setNetworkType],
+    setWallet: [Function: bound setWallet],
+    resetAddress: [Function: bound resetAddress],
+    link: [Function: bound link],
+    clone: [Function: bound clone],
+    addProp: [Function: bound addProp],
+    toJSON: [Function: bound toJSON],
+    decodeLogs: [Function: bound decodeLogs],
+    enums: {},
+    class_defaults: {
+      from: '0xF38D62052fc124378F518247a438922085571A2a',
+      gas: 6721975
+    },
+    interfaceAdapter: Web3InterfaceAdapter { web3: [Web3Shim] },
+    web3: Web3Shim {
+      currentProvider: [Getter/Setter],
+      _requestManager: [RequestManager],
+      givenProvider: null,
+      providers: [Object],
+      _provider: [HttpProvider],
+      setProvider: [Function (anonymous)],
+      setRequestManager: [Function (anonymous)],
+      BatchRequest: [Function: bound Batch],
+      extend: [Function],
+      version: '1.4.0',
+      utils: [Object],
+      eth: [Eth],
+      shh: [Shh],
+      bzz: [Bzz],
+      networkType: 'ethereum'
+    },
+    currentProvider: HttpProvider {
+      withCredentials: false,
+      timeout: 0,
+      headers: undefined,
+      agent: undefined,
+      connected: true,
+      host: 'http://127.0.0.1:7545',
+      httpAgent: [Agent],
+      send: [Function (anonymous)],
+      _alreadyWrapped: true
+    },
+    network_id: '5777',
+    disableConfirmationListener: undefined,
+    ens: { enabled: false, registryAddress: null }
+  },
+  methods: {
+    'taskCount()': [Function (anonymous)] {
+      call: [Function (anonymous)],
+      sendTransaction: [Function (anonymous)],
+      estimateGas: [Function (anonymous)],
+      request: [Function (anonymous)]
+    }
+  },
+  abi: [
+    {
+      constant: true,
+      inputs: [],
+      name: 'taskCount',
+      outputs: [Array],
+      payable: false,
+      stateMutability: 'view',
+      type: 'function',
+      signature: '0xb6cb58a5'
+    }
+  ],
+  address: '0xc8197eb892BFA9eE9D3F09876Ef97F4C913A2a80',
+  transactionHash: undefined,
+  contract: Contract {
+    setProvider: [Function (anonymous)],
+    currentProvider: [Getter/Setter],
+    _requestManager: RequestManager {
+      provider: [HttpProvider],
+      providers: [Object],
+      subscriptions: Map(0) {}
+    },
+    givenProvider: null,
+    providers: {
+      WebsocketProvider: [Function: WebsocketProvider],
+      HttpProvider: [Function: HttpProvider],
+      IpcProvider: [Function: IpcProvider]
+    },
+    _provider: HttpProvider {
+      withCredentials: false,
+      timeout: 0,
+      headers: undefined,
+      agent: undefined,
+      connected: true,
+      host: 'http://127.0.0.1:7545',
+      httpAgent: [Agent],
+      send: [Function (anonymous)],
+      _alreadyWrapped: true
+    },
+    setRequestManager: [Function (anonymous)],
+    BatchRequest: [Function: bound Batch],
+    extend: [Function: ex] {
+      formatters: [Object],
+      utils: [Object],
+      Method: [Function: Method]
+    },
+    clearSubscriptions: [Function (anonymous)],
+    options: { address: [Getter/Setter], jsonInterface: [Getter/Setter] },
+    handleRevert: [Getter/Setter],
+    defaultCommon: [Getter/Setter],
+    defaultHardfork: [Getter/Setter],
+    defaultChain: [Getter/Setter],
+    transactionPollingTimeout: [Getter/Setter],
+    transactionConfirmationBlocks: [Getter/Setter],
+    transactionBlockTimeout: [Getter/Setter],
+    defaultAccount: [Getter/Setter],
+    defaultBlock: [Getter/Setter],
+    methods: {
+      taskCount: [Function: bound _createTxObject],
+      '0xb6cb58a5': [Function: bound _createTxObject],
+      'taskCount()': [Function: bound _createTxObject]
+    },
+    events: { allEvents: [Function: bound ] },
+    _address: '0xc8197eb892BFA9eE9D3F09876Ef97F4C913A2a80',
+    _jsonInterface: [ [Object] ]
+  },
+  taskCount: [Function (anonymous)] {
+    call: [Function (anonymous)],
+    sendTransaction: [Function (anonymous)],
+    estimateGas: [Function (anonymous)],
+    request: [Function (anonymous)]
+  },
+  sendTransaction: [Function (anonymous)],
+  send: [Function (anonymous)],
+  allEvents: [Function (anonymous)],
+  getPastEvents: [Function (anonymous)]
+}
