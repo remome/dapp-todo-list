@@ -8,26 +8,19 @@ import JSONTodoListContract from "./TodoList.json";
 // CSS
 import { todolist } from "./todolist.css";
 // Ant design
-import { Card, Input, List, Typography } from "antd";
+import { Row, Col, Card, Input, List, Typography, Checkbox } from "antd";
 // Ant icons
 import { ArrowLeftOutlined } from "@ant-design/icons";
 
 const { Search } = Input;
 
-const network_address = '0x9637AC8843d1668F7c2E58649077DF7c00d804e6'
-
-const data = [
-  'Racing car sprays burning fuel into crowd.',
-  'Japanese princess to wed commoner.',
-  'Australian walks 100km after outback crash.',
-  'Man charged over missing wedding girl.',
-  'Los Angeles battles huge wildfires.',
-];
+const network_address = '0x85cC4575ed91f9053F8cd0e088099e7F819c3446' // old '0x9637AC8843d1668F7c2E58649077DF7c00d804e6'
 
 const TodoList = () => {
     // Defind State
     const [account, setAccount] = useState(false)
     const [todoList, setTodoList] = useState(false)
+    const [amountTodoList, setAmountTodoList] = useState(0)
 
     const loadBlockchainData = async () => {
       // Loading app..
@@ -77,52 +70,73 @@ const TodoList = () => {
     const loadAccount = async () => {
       console.log('account loading...')
       const accounts = await window.web3.eth.getAccounts()
+      console.log(accounts)
       setAccount(accounts[0])
     }
 
     const loadContract = async () => {
-      // Create a JavaScript version of the smart contract
-      const todoList = JSONTodoListContract
-      var web3_contract = new window.web3.eth.Contract(JSON.parse(todoList), network_address)
-      var data = await web3_contract.methods.tasks.call()
-      alert('tets')
-      // window.contract_todolist = TruffleContract(todoList)
-      // window.contract_todolist.setProvider(window.web3)
 
-      // setTodoList(web3_contract)
+        const todoList = JSONTodoListContract
 
-      // Hydrate the smart contract with values from the blockchain
-      // let todo = await window.contract_todolist.deployed()
+        var web3_contract = new window.web3.eth.Contract(todoList.abi, network_address)
+        var todoListAmount = await web3_contract.methods.taskCount().call()
+        todoListAmount = parseInt(todoListAmount)
+
+        setAmountTodoList(todoListAmount)
+
+        let tasks = []
+        for(let i=1; i <= todoListAmount; i++) {
+          let rs = await web3_contract.methods.tasks(i).call()
+          tasks = [...tasks, {
+            id: rs.id,
+            content: rs.content,
+            completed: rs.completed
+          }]
+        }
+        setTodoList(tasks)
     }
 
-    // const renderTasks = () => {
-    //
-    // }
+    if(!todoList) loadBlockchainData()
 
-    loadBlockchainData();
+    const handleTodoList = (e) => {
+      console.log(`checked = ${e.target.checked}`)
+    }
+
+    const renderListofTodoList = () => {
+      console.log(`todolist amount: ${amountTodoList}`)
+      if(todoList.length > 0) {
+        return <List
+          size="large"
+          dataSource={todoList}
+          renderItem={task => (
+            <List.Item>
+              <Typography.Text><Checkbox onChange={handleTodoList}></Checkbox></Typography.Text> {task.content}
+            </List.Item>
+          )}
+        />;
+      } else {
+        return <List size="large"/>
+      }
+    }
 
     return(
-        <div className="">
-            <Card className="home-card" title="TodoList" bordered={true}>
-              <Link to="/"><ArrowLeftOutlined />Home</Link>
-              <p>Account is {account}</p>
-              <p>{todoList}</p>
-              <Search
-                placeholder="input your todo list... "
-                enterButton="Search"
-                size="large"
-                onSearch={value => console.log(value)}
-              />
-              <h3 style={{ margin: '16px 0' }}>Active List</h3>
-              <List
-                size="large"
-                header={<div>Header</div>}
-                footer={<div>Footer</div>}
-                bordered
-                dataSource={data}
-                renderItem={item => <List.Item>{item}</List.Item>}
-              />
-            </Card>
+        <div>
+          <Row>
+            <Col span={24}>
+              <Card className="home-card" title="TodoList" bordered={true}>
+                <Link to="/"><ArrowLeftOutlined />Home</Link>
+                <p><br></br><b>Account : </b> {account}</p>
+                <Search
+                  placeholder="input your todo list... "
+                  enterButton="create"
+                  size="large"
+                  onSearch={value => console.log(value)}
+                />
+                <h3 style={{ margin: '16px 0' }}>Active List</h3>
+                { renderListofTodoList() }
+              </Card>
+            </Col>
+          </Row>
         </div>
     )
 }

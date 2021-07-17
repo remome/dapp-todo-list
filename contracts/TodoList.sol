@@ -13,6 +13,7 @@ contract TodoList {
 
   constructor() public {
     createTask("check out bitkubchain.com");
+    createTask("Task #1");
   }
 
   function createTask(string memory _content) public {
