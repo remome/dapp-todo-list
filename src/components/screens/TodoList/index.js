@@ -20,7 +20,7 @@ const TodoList = () => {
     // Defind State
     const [account, setAccount] = useState(false)
     const [todoList, setTodoList] = useState(false)
-    const [amountTodoList, setAmountTodoList] = useState(0)
+    const [todoListAmount, setAmountTodoList] = useState(0)
 
     const loadBlockchainData = async () => {
       // Loading app..
@@ -35,7 +35,7 @@ const TodoList = () => {
       if (typeof window.web3 !== 'undefined') {
         window.web3 = new Web3(Web3.currentProvider)
       } else {
-        window.alert("Please connect to Metamask.")
+        alert("Please connect to Metamask.")
         setTimeout(() => {
           window.location.reload();
         }, 1000)
@@ -60,57 +60,65 @@ const TodoList = () => {
       }
       // Non-dapp browsers...
       else {
-        console.log('Non-Ethereum browser detected. You should consider trying MetaMask!')
+        alert('Non-Ethereum browser detected. You should consider trying MetaMask!')
       }
-
-      return true // web3Provider || false
 
     }
 
     const loadAccount = async () => {
       console.log('account loading...')
       const accounts = await window.web3.eth.getAccounts()
-      console.log(accounts)
       setAccount(accounts[0])
     }
 
     const loadContract = async () => {
-
+        // Read file TodoList.json
         const todoList = JSONTodoListContract
-
+        // Connect contract TodoList
         var web3_contract = new window.web3.eth.Contract(todoList.abi, network_address)
+        // Get taskCount on contract TodoList
         var todoListAmount = await web3_contract.methods.taskCount().call()
         todoListAmount = parseInt(todoListAmount)
-
+        // Set taskCount to state
         setAmountTodoList(todoListAmount)
 
         let tasks = []
         for(let i=1; i <= todoListAmount; i++) {
-          let rs = await web3_contract.methods.tasks(i).call()
+          // Get tasks by index on contract TodoList
+          let task = await web3_contract.methods.tasks(i).call()
+          // Generate tasks are array
           tasks = [...tasks, {
-            id: rs.id,
-            content: rs.content,
-            completed: rs.completed
+            id: task.id,
+            content: task.content,
+            completed: task.completed
           }]
         }
+        // Set tasks to state
         setTodoList(tasks)
     }
 
+    // Render loadBlockchainData First !!
     if(!todoList) loadBlockchainData()
 
-    const handleTodoList = (e) => {
+    const handleCheckTodoList = (e) => {
       console.log(`checked = ${e.target.checked}`)
     }
 
+    const generateCheckbox = (task) => {
+      if (task.completed) return <Checkbox checked disabled>{task.content}</Checkbox>
+      else return <Checkbox onClick={handleCheckTodoList}>{task.content}</Checkbox>
+    }
+
     const renderListofTodoList = () => {
-      console.log(`todolist amount: ${amountTodoList}`)
+      console.log(`todolist amount: ${todoListAmount}`)
+
       if(todoList.length > 0) {
         return <List
           size="large"
           dataSource={todoList}
           renderItem={task => (
             <List.Item>
-              <Typography.Text><Checkbox onChange={handleTodoList}></Checkbox></Typography.Text> {task.content}
+              <Typography.Text>{generateCheckbox(task)}</Typography.Text>
             </List.Item>
           )}
         />;
