@@ -69,21 +69,22 @@ const TodoList = () => {
     }
 
     const loadContract = async () => {
+
       try {
         // Read file TodoList.json
         const todoList = JSONTodoListContract
         // Connect contract TodoList
-        var web3_contract = new window.web3.eth.Contract(todoList.abi, network_address)
+        window.web3_contract = new window.web3.eth.Contract(todoList.abi, network_address)
         // Get taskCount on contract TodoList
-          var todoListAmount = await web3_contract.methods.taskCount().call()
-          todoListAmount = parseInt(todoListAmount)
+        var todoListAmount = await window.web3_contract.methods.taskCount().call()
+        todoListAmount = parseInt(todoListAmount)
         // Set taskCount to state
         setAmountTodoList(todoListAmount)
 
         let tasks = []
         for(let i=1; i <= todoListAmount; i++) {
           // Get tasks by index on contract TodoList
-          let task = await web3_contract.methods.tasks(i).call()
+          let task = await window.web3_contract.methods.tasks(i).call()
           // Generate tasks are array
           tasks = [...tasks, {
             id: task.id,
@@ -98,10 +99,21 @@ const TodoList = () => {
       } finally {
         return
       }
+
     }
 
     // Render loadBlockchainData First !!
     if(!todoList) loadBlockchainData()
+
+    const handleCreateTask = async (content) => {
+      await window.web3_contract.methods.createTask(content).send({ from: account })
+      .on('error', (err) => {
+        console.log(err)
+        alert(err.message)
+        setTimeout(() => { window.location.reload() }, 1000)
+      })
+      window.location.reload()
+    }
 
     const handleCheckTodoList = (e) => {
       console.log(`checked = ${e.target.checked}`)
@@ -141,7 +153,7 @@ const TodoList = () => {
                   placeholder="input your todo list... "
                   enterButton="create"
                   size="large"
-                  onSearch={value => console.log(value)}
+                  onSearch={ handleCreateTask }
                 />
                 <h3 style={{ margin: '16px 0' }}>Active List</h3>
                 { renderListofTodoList() }

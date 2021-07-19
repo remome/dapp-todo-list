@@ -11,6 +11,12 @@ contract TodoList {
 
   mapping(uint => Task) public tasks; // mapping(อันนี้ตือ key => อันนี้ struct Task) มาเก็บไว้ที่ tasks;
 
+  event TaskCreated(
+    uint id,
+    string content,
+    bool completed
+  );
+
   constructor() public {
     createTask("check out bitkubchain.com");
     createTask("Task #1");
@@ -19,6 +25,7 @@ contract TodoList {
   function createTask(string memory _content) public {
     taskCount ++; // create id for tasks
     tasks[taskCount] = Task(taskCount, _content, false);
+    emit TaskCreated(taskCount, _content, false);
   }
 
 }
