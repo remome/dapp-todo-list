@@ -14,8 +14,7 @@ import { ArrowLeftOutlined } from "@ant-design/icons";
 
 const { Search } = Input;
 
-const network_address = '0x85cC4575ed91f9053F8cd0e088099e7F819c3446' // old '0x9637AC8843d1668F7c2E58649077DF7c00d804e6'
-
+const network_address = '0x931E57320103f86d0439a6b27868c226cA0aB862'
 const TodoList = () => {
     // Defind State
     const [account, setAccount] = useState(false)
@@ -36,9 +35,7 @@ const TodoList = () => {
         window.web3 = new Web3(Web3.currentProvider)
       } else {
         alert("Please connect to Metamask.")
-        setTimeout(() => {
-          window.location.reload();
-        }, 1000)
+        setTimeout(() => { window.location.reload() }, 1000)
       }
       // Modern dapp browsers...
       if (window.ethereum) {
@@ -72,13 +69,14 @@ const TodoList = () => {
     }
 
     const loadContract = async () => {
+      try {
         // Read file TodoList.json
         const todoList = JSONTodoListContract
         // Connect contract TodoList
         var web3_contract = new window.web3.eth.Contract(todoList.abi, network_address)
         // Get taskCount on contract TodoList
-        var todoListAmount = await web3_contract.methods.taskCount().call()
-        todoListAmount = parseInt(todoListAmount)
+          var todoListAmount = await web3_contract.methods.taskCount().call()
+          todoListAmount = parseInt(todoListAmount)
         // Set taskCount to state
         setAmountTodoList(todoListAmount)
 
@@ -95,6 +93,11 @@ const TodoList = () => {
         }
         // Set tasks to state
         setTodoList(tasks)
+      } catch (e) {
+        console.log('error', e)
+      } finally {
+        return
+      }
     }
 
     // Render loadBlockchainData First !!
