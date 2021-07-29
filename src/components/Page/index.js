@@ -20,7 +20,7 @@ const Page = ({ children }) => {
     <Layout>
         <Header>Header</Header>
         <Content className={styles.inner}>{children}</Content>
-        <Footer>Footer</Footer>
+        {/* <Footer>Footer</Footer> */}
     </Layout>
     </>
   );
