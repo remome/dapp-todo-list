@@ -1,9 +1,9 @@
 import './App.css';
 import Page from "./components/Page";
 import Home from "./components/screens/Home";
-import Swap from "./components/screens/Swap";
-import TodoList from "./components/screens/TodoList";
-import ST from "./components/screens/ST";
+// import Swap from "./components/screens/Swap";
+// import TodoList from "./components/screens/TodoList";
+// import ST from "./components/screens/ST";
 import WP from "./components/screens/WP";
 import { BrowserRouter as Router, Switch, Route } from "react-router-dom";
 
@@ -22,7 +22,7 @@ function App() {
               </Page>
             )}
           />
-          <Route
+          {/* <Route
            exact
            path="/todo-list"
            render={() => (
@@ -48,7 +48,7 @@ function App() {
                 <ST />
               </Page>
             )}
-          />
+          /> */}
           <Route
             exact
             path="/wp"

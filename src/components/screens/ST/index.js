@@ -22,8 +22,8 @@ const INITIAL_STATE = {
 const ST = () => {
 
     const [connect, setConnector] = useState(INITIAL_STATE)
-
-    if(connect.connector) console.log(connect.connector._accounts[0])
+    const [data, setData] = useState(INITIAL_STATE)
+    const [address, setAddress] = useState('')
 
     const walletConnectInit = async () => {
         // bridge url
@@ -53,20 +53,24 @@ const ST = () => {
         if (!connector) {
           return;
         }
+
+        // console.log(connector)
     
         connector.on("session_update", async (error, payload) => {
           console.log(`connector.on("session_update")`)
+          // console.log(payload)
     
           if (error) {
             throw error
           }
     
           const { chainId, accounts } = payload.params[0]
+
           onSessionUpdate(accounts, chainId)
         })
     
         connector.on("connect", (error, payload) => {
-          console.log(`connector.on("connect")`)
+          console.log(`connector.on("connect")`, )
     
           if (error) {
             throw error
@@ -100,8 +104,18 @@ const ST = () => {
         setConnector({ connector })
       }
 
+      const killSession = async () => {
+        const { connector } = connect
+        if (connector) {
+          connector.killSession()
+        }
+        console.log('kill session')
+        resetApp()
+      }
+
       const resetApp = async () => {
         await setConnector({ ...INITIAL_STATE })
+        window.location.reload()
       }
 
       const onConnect = async (payload) => {
@@ -113,24 +127,40 @@ const ST = () => {
           accounts,
           address,
         })
+        await setAddress(address)
       }
 
       const onDisconnect = async () => {
+        console.log('disconnect')
         await resetApp()
       }
 
       const onSessionUpdate = async (accounts, chainId) => {
         const address = accounts[0]
         await setConnector({ chainId, accounts, address })
+        await setAddress(address)
       }
+    // console.log(connect.connector._accounts)
 
     return(
         <>
         <Row>
           <Col span={24}>
+            <p>Connect: {address}</p>
+            <p>Address: {address}</p>
+          </Col>
+          <Col span={24}>
+            {!address ? (
               <Button onClick={walletConnectInit}>
                   Connect to WalletConnect
               </Button>
+            ) : (
+              <>
+                <Button onClick={killSession}>
+                    Disconnect to WalletConnect
+                </Button>
+              </>
+            )}
           </Col>
         </Row>
         </>
