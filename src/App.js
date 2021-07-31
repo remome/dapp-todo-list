@@ -4,7 +4,9 @@ import Home from "./components/screens/Home";
 // import Swap from "./components/screens/Swap";
 // import TodoList from "./components/screens/TodoList";
 // import ST from "./components/screens/ST";
-import WP from "./components/screens/WP";
+// import WP from "./components/screens/WP";
+import IF from "./components/screens/IF";
+
 import { BrowserRouter as Router, Switch, Route } from "react-router-dom";
 
 function App() {
@@ -49,7 +51,7 @@ function App() {
               </Page>
             )}
           /> */}
-          <Route
+          {/* <Route
             exact
             path="/wp"
             render={() => (
@@ -57,7 +59,16 @@ function App() {
                 <WP />
               </Page>
             )}
-          />
+          /> */}
+          <Route
+            exact
+            path="/if"
+            render={() => (
+              <Page>
+                <IF />
+              </Page>
+            )}
+          />  
       </Switch>
     </Router>
   );
